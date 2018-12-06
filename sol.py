@@ -27,12 +27,22 @@ class Graph:
         self.graph = [[math.inf for _ in range(vertices)]
                       for _ in range(vertices)]
 
-    def printMST(self, parent):
+    def writeMST(self, parent):
         with open("output.txt", "w", encoding="utf-8") as f:
             summary = 0
+            edges = []
             for i in range(1, self.V):
-                res = str(i + 1) + " " + str(parent[i] + 1)
-                f.write(res + "\n")
+                edges.append((i, parent[i]))
+            for i in range(self.V - 1):
+                res = ''
+                for el in edges:
+                    if el[0] == i:
+                        res += str(el[1] + 1) + " " + str(int(self.graph[el[1]][el[0]])) + " "
+                    if el[1] == i:
+                        res += str(el[0] + 1) + " " + str(int(self.graph[el[1]][el[0]])) + " "
+                f.write(res + "0\n")
+
+            for i in range(1, self.V):
                 summary += self.graph[i][parent[i]]
             f.write(str(int(summary)))
 
@@ -102,7 +112,7 @@ class Graph:
                 if self.graph[u][v] < math.inf and already_set_in_MST[v] == False and weight[v] > self.graph[u][v]:
                     weight[v] = self.graph[u][v]
                     parent[v] = u
-        self.printMST(parent)
+        self.writeMST(parent)
 
 
 graph_edges = get_file_input_graph_adjucency_list()
