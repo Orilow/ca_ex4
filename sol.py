@@ -33,7 +33,7 @@ class Graph:
             edges = []
             for i in range(1, self.V):
                 edges.append((i, parent[i]))
-            for i in range(self.V - 1):
+            for i in range(self.V):
                 res = ''
                 for el in edges:
                     if el[0] == i:
@@ -103,7 +103,7 @@ class Graph:
             for v in range(self.V):
                 # graph[u][v] имеет ребро если его вес < inf
                 # already_set_in_MST[v] false для невключенных в остов вершин
-                # Обновляем weight только если graph[u][v] меньше чем key[v]
+                # Обновляем weight только если graph[u][v] меньше чем weight[v]
                 # Как раз здесь идет проверка на цикл
                 #
                 # graph[u][v] is non zero only for adjacent vertices of m
